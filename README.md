@@ -52,8 +52,11 @@ dict_of_duplicate_docs = {}
 def main():
     # Define start and end date for deduplication periods
     # delta is increments to step through
-    #   - smaller increment has a lower memory overhead for the host running the script, with the tradeoff of more queries sent to Elasticsearch; too small an increment results in either no duplicates being found or Elasticsearch being overwhelmed by too many requests
-    #   - larger increment has more memory overhead for host running script but less queries sent to Elasticsearch, one may need to increase request timeout values if using a very large delta
+    #   - smaller increment has a lower memory overhead for the host running the script, with the tradeoff of more queries sent to Elasticsearch
+    #     too small an increment results in either no duplicates being found or Elasticsearch being overwhelmed by too many requests
+    #   - larger increment has more memory overhead (1 Month is about 4GB) for host running script but less queries sent to Elasticsearch
+    #     one may need to increase request timeout values if using a large increment (days=30, days=60, days=180 etc )
+    # Start and End date of deduplication period, stored as Python Datetime object in format (YYYY, M, D)values if using a very large delta
     start_date = datetime.datetime(2019, 1, 1)
     end_date = datetime.datetime(2019, 12, 31)
     delta = datetime.timedelta(days=1)
